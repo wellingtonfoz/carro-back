@@ -38,10 +38,9 @@ public class GlobalExceptionHandler {
 
 	//TRATAMENTO DOS DEMAIS ERROS DA APLICAÇÃO E DE REGRAS DE NEGÓCIO
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
-		Map<String, String> erros = new HashMap<>();
-		erros.put("Erro", ex.getMessage());
-		return new ResponseEntity<Map<String, String>>(erros, HttpStatus.BAD_REQUEST);
+	public ResponseEntity<String> handle03(Exception ex) {
+		//ex.printStackTrace();
+		return new ResponseEntity<String>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 }

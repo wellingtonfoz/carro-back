@@ -22,6 +22,10 @@ public class CarroService {
 		return this.carroRepository.findById(id).get();
 	}
 	
+	public List<Carro> findByNome(String nome) {
+		return this.carroRepository.findByNomeContainingIgnoreCase(nome);
+	}
+	
 	public String save(Carro carro) {
 		this.carroRepository.save(carro);
 		return "Carro salvo com sucesso";

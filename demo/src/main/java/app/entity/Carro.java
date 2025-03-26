@@ -27,7 +27,7 @@ public class Carro {
 	private String nome;
 	
 	@ManyToOne
-	@NotNull(message = "Marca é obrigatória")
+	//@NotNull(message = "Marca é obrigatória")
 	private Marca marca;
 
 }

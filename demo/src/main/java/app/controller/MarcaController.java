@@ -34,13 +34,13 @@ public class MarcaController {
 	}
 
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Marca> findById(@PathVariable long id){
+	public ResponseEntity<Marca> findById(@PathVariable("id") long id){
 		Marca marca = this.marcaService.findById(id);
 		return new ResponseEntity<>(marca, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/deleteById/{id}")
-	public ResponseEntity<String> deleteById(@PathVariable long id){
+	public ResponseEntity<String> deleteById(@PathVariable("id") long id){
 		String mensagem = this.marcaService.deleteById(id);
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
@@ -52,7 +52,7 @@ public class MarcaController {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update(@RequestBody Marca marca, @PathVariable long id){
+	public ResponseEntity<String> update(@RequestBody Marca marca, @PathVariable("id") long id){
 		String mensagem = this.marcaService.update(marca, id);
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}

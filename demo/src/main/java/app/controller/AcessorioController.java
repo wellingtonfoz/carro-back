@@ -34,13 +34,13 @@ public class AcessorioController {
 	}
 
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Acessorio> findById(@PathVariable long id){
+	public ResponseEntity<Acessorio> findById(@PathVariable("id") long id){
 		Acessorio acessorio = this.acessorioService.findById(id);
 		return new ResponseEntity<>(acessorio, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/deleteById/{id}")
-	public ResponseEntity<String> deleteById(@PathVariable long id){
+	public ResponseEntity<String> deleteById(@PathVariable("id") long id){
 		String mensagem = this.acessorioService.deleteById(id);
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
@@ -52,7 +52,7 @@ public class AcessorioController {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update(@RequestBody Acessorio acessorio, @PathVariable long id){
+	public ResponseEntity<String> update(@RequestBody Acessorio acessorio, @PathVariable("id") long id){
 		String mensagem = this.acessorioService.update(acessorio, id);
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}

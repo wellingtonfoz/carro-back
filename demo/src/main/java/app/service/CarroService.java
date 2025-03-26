@@ -1,6 +1,7 @@
 package app.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,11 @@ public class CarroService {
 	}
 	
 	public Carro findById(long id) {
-		return this.carroRepository.findById(id).get();
+		Optional<Carro> carro = this.carroRepository.findById(id);
+		if(carro.isPresent())
+			return carro.get();
+		else
+			return null;
 	}
 	
 	public List<Carro> findByNome(String nome) {

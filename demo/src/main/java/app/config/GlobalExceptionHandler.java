@@ -10,15 +10,40 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-            errors.put(error.getField(), error.getDefaultMessage());
-        }
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
+	//TRATAMENTO DE ERROS DE VALIDATIONS
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Map<String, String>> handle01(MethodArgumentNotValidException ex) {
+		Map<String, String> erros = new HashMap<>();
+		for (FieldError fildError : ex.getBindingResult().getFieldErrors()) {
+			erros.put(fildError.getField(), fildError.getDefaultMessage());
+		}
+		return new ResponseEntity<Map<String, String>>(erros, HttpStatus.BAD_REQUEST);
+	}
+
+	//TRATAMENTO DE ERROS DE VALIDATIONS
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<Map<String, String>> handle02(ConstraintViolationException ex) {
+		Map<String, String> erros = new HashMap<>();
+		for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+			erros.put(violation.getPropertyPath().toString(), violation.getMessage());
+		}
+		return new ResponseEntity<Map<String, String>>(erros, HttpStatus.BAD_REQUEST);
+	}
+
+	//TRATAMENTO DOS DEMAIS ERROS DA APLICAÇÃO E DE REGRAS DE NEGÓCIO
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<Map<String, String>> handleGenericException(Exception ex) {
+		Map<String, String> erros = new HashMap<>();
+		erros.put("Erro", ex.getMessage());
+		return new ResponseEntity<Map<String, String>>(erros, HttpStatus.BAD_REQUEST);
+	}
+
 }
+
+

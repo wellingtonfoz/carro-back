@@ -34,7 +34,7 @@ public class CarroController {
 		return new ResponseEntity<>(lista, HttpStatus.OK);
 	}
 
-	@GetMapping("/findByNome/{id}")
+	@GetMapping("/findByNome")
 	public ResponseEntity<List<Carro>> findByNome(@RequestParam("nome") String nome){
 		List<Carro> lista = this.carroService.findByNome(nome);
 		return new ResponseEntity<>(lista, HttpStatus.OK);

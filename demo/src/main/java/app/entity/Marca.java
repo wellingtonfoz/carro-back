@@ -23,5 +23,7 @@ public class Marca {
 	
 	@NotBlank(message = "Nome da marca é obrigatório")
 	private String nome;
+	
+	private String descricao;
 
 }

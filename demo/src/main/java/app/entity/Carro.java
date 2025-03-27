@@ -26,8 +26,11 @@ public class Carro {
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 	
+	@NotBlank(message = "Modelo é obrigatório")
+	private String modelo;
+	
 	@ManyToOne
-	//@NotNull(message = "Marca é obrigatória")
+	@NotNull(message = "Marca é obrigatória")
 	private Marca marca;
 
 }

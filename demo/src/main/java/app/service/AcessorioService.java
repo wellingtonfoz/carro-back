@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.entity.Acessorio;
+import app.entity.Carro;
 import app.repository.AcessorioRepository;
 
 @Service
@@ -20,6 +21,10 @@ public class AcessorioService {
 	
 	public Acessorio findById(long id) {
 		return this.acessorioRepository.findById(id).get();
+	}
+	
+	public List<Acessorio> findByNome(String nome) {
+		return this.acessorioRepository.findByNomeContainingIgnoreCase(nome);
 	}
 	
 	public String save(Acessorio acessorio) {

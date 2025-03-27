@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Acessorio;
+import app.entity.Carro;
 import app.service.AcessorioService;
 
 
@@ -32,6 +34,13 @@ public class AcessorioController {
 		List<Acessorio> lista = this.acessorioService.findAll();
 		return new ResponseEntity<>(lista, HttpStatus.OK);
 	}
+	
+	@GetMapping("/findByNome")
+	public ResponseEntity<List<Acessorio>> findByNome(@RequestParam("nome") String nome){
+		List<Acessorio> lista = this.acessorioService.findByNome(nome);
+		return new ResponseEntity<>(lista, HttpStatus.OK);
+	}
+	
 
 	@GetMapping("/findById/{id}")
 	public ResponseEntity<Acessorio> findById(@PathVariable("id") long id){

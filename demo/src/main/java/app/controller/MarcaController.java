@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Marca;
@@ -30,6 +31,12 @@ public class MarcaController {
 	@GetMapping("/findAll")
 	public ResponseEntity<List<Marca>> findAll(){
 		List<Marca> lista = this.marcaService.findAll();
+		return new ResponseEntity<>(lista, HttpStatus.OK);
+	}
+	
+	@GetMapping("/findByNome")
+	public ResponseEntity<List<Marca>> findByNome(@RequestParam("nome") String nome){
+		List<Marca> lista = this.marcaService.findByNome(nome);
 		return new ResponseEntity<>(lista, HttpStatus.OK);
 	}
 

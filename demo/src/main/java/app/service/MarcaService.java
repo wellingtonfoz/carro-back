@@ -22,6 +22,10 @@ public class MarcaService {
 		return this.marcaRepository.findById(id).get();
 	}
 	
+	public List<Marca> findByNome(String nome) {
+		return this.marcaRepository.findByNomeContainingIgnoreCase(nome);
+	}
+	
 	public String save(Marca marca) {
 		this.marcaRepository.save(marca);
 		return "Marca salvo com sucesso";

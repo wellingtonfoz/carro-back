@@ -1,9 +1,13 @@
 package app.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,5 +36,9 @@ public class Carro {
 	@ManyToOne
 	@NotNull(message = "Marca é obrigatória")
 	private Marca marca;
+	
+	@ManyToMany
+	@JoinTable(name="carro_acessorio")
+	private List<Acessorio> acessorios;
 
 }

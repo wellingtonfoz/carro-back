@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import app.entity.Acessorio;
-import app.entity.Carro;
 import app.service.AcessorioService;
 
 

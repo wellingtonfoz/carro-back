@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,51 +17,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.entity.Marca;
-import app.service.MarcaService;
+import app.entity.Carro;
+import app.service.CarroService;
 
 
 @RestController
-@RequestMapping("/api/marca")
+@RequestMapping("/api/carro")
 @CrossOrigin("*")
-public class MarcaController {
+public class CarroController {
 
 	@Autowired
-	private MarcaService marcaService;
+	private CarroService carroService;
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/findAll")
-	public ResponseEntity<List<Marca>> findAll(){
-		List<Marca> lista = this.marcaService.findAll();
+	public ResponseEntity<List<Carro>> findAll(){
+		List<Carro> lista = this.carroService.findAll();
+		return new ResponseEntity<>(lista, HttpStatus.OK);
+	}
+
+	@GetMapping("/findByNome")
+	public ResponseEntity<List<Carro>> findByNome(@RequestParam("nome") String nome){
+		List<Carro> lista = this.carroService.findByNome(nome);
 		return new ResponseEntity<>(lista, HttpStatus.OK);
 	}
 	
-	@GetMapping("/findByNome")
-	public ResponseEntity<List<Marca>> findByNome(@RequestParam("nome") String nome){
-		List<Marca> lista = this.marcaService.findByNome(nome);
-		return new ResponseEntity<>(lista, HttpStatus.OK);
-	}
-
 	@GetMapping("/findById/{id}")
-	public ResponseEntity<Marca> findById(@PathVariable("id") long id){
-		Marca marca = this.marcaService.findById(id);
-		return new ResponseEntity<>(marca, HttpStatus.OK);
+	public ResponseEntity<Carro> findById(@PathVariable("id") long id){
+		Carro carro = this.carroService.findById(id);
+		return new ResponseEntity<>(carro, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/deleteById/{id}")
 	public ResponseEntity<String> deleteById(@PathVariable("id") long id){
-		String mensagem = this.marcaService.deleteById(id);
+		String mensagem = this.carroService.deleteById(id);
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<String> save(@RequestBody Marca marca){
-		String mensagem = this.marcaService.save(marca);
+	public ResponseEntity<String> save(@RequestBody Carro carro){
+		String mensagem = this.carroService.save(carro);
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> update(@RequestBody Marca marca, @PathVariable("id") long id){
-		String mensagem = this.marcaService.update(marca, id);
+	public ResponseEntity<String> update(@RequestBody Carro carro, @PathVariable("id") long id){
+		String mensagem = this.carroService.update(carro, id);
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
 
